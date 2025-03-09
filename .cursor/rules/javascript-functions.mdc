@@ -1,0 +1,11 @@
+JavaScript Functionality
+
+-Drag-and-Drop: Implement drag-and-drop using Vue’s event listeners (@dragstart, @dragover, @drop).
+
+-Event Handling: Use addEventListener for custom event listeners when needed.
+
+-Debouncing & Throttling: Optimize frequent user interactions with setTimeout or requestAnimationFrame.
+
+-Data Manipulation: Utilize JavaScript array methods (map, filter, reduce) for efficient task operations.
+
+-Async Operations: Use async/await for handling API responses cleanly.
