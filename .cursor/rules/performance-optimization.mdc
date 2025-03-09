@@ -1,0 +1,11 @@
+Performance Optimization 
+
+-Lazy Loading: Use Vue’s dynamic imports for loading components only when needed.
+
+-Code Splitting: Implement Webpack’s split-chunk strategy for efficient bundling.
+
+-Optimized Rendering: Use Vue’s v-if and v-show wisely to minimize DOM re-renders.
+
+-Asset Optimization: Compress and minimize images, icons, and other media files.
+
+-Event Delegation: Optimize large event listeners by using event delegation.
