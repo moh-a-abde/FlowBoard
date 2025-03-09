@@ -1,0 +1,13 @@
+Vue.js Component Guidelines
+
+-Component-Based Structure: Each feature should be broken into reusable Vue components.
+
+-State Management: Utilize Vue’s reactive state with ref, reactive, or Pinia if needed.
+
+-Props & Emit: Components should communicate using props and custom events.
+
+-Lifecycle Hooks: Optimize performance by utilizing lifecycle hooks (onMounted, onUpdated, onUnmounted).
+
+-Routing: Use Vue Router for navigation between different sections.
+
+-API Calls: Handle external data fetching using fetch or Axios within setup() or Vue’s Composition API.
