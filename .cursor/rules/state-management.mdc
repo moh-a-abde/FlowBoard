@@ -1,4 +1,4 @@
-5. State Management 
+State Management 
 
 -Vuex/Pinia Usage: Use a centralized store for managing application-wide state.
 
