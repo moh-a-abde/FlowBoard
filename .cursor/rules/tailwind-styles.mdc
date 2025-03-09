@@ -1,0 +1,11 @@
+TailwindCSS Styling
+
+-Utility-First Design: Follow Tailwind’s utility classes for styling (flex, grid, p-4, bg-gray-100).
+
+-Responsiveness: Implement sm:, md:, lg:, xl: breakpoints for mobile-first design.
+
+-Animations: Use Tailwind’s built-in animation utilities (transition, animate-spin, hover:bg-opacity-75).
+
+-Dark Mode Support: Utilize dark: classes for a seamless dark mode experience.
+
+-Custom Themes: Extend Tailwind configuration using tailwind.config.js
