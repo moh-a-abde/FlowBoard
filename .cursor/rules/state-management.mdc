@@ -1,0 +1,9 @@
+5. State Management 
+
+-Vuex/Pinia Usage: Use a centralized store for managing application-wide state.
+
+-Reactive Data: Ensure reactive data is used efficiently to minimize unnecessary re-renders.
+
+-Global State Handling: Store user preferences, task states, and UI settings globally.
+
+-Persistence: Save state data using localStorage or Vuex persistence plugins.
