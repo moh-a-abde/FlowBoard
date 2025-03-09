@@ -1,0 +1,11 @@
+API Integration 
+
+-Backend Communication: Ensure API requests follow RESTful principles.
+
+-Authentication: Implement token-based authentication (JWT or OAuth).
+
+-CRUD Operations: Define standardized endpoints for task creation, retrieval, updates, and deletion.
+
+-Error Handling: Provide proper error messages and retry mechanisms for failed requests.
+
+-Real-Time Updates: Use WebSockets or polling for real-time task updates
