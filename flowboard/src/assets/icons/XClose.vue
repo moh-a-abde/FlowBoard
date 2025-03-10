@@ -1,4 +1,5 @@
 <template>
-  <!-- Improved X (close) icon for better visibility and user experience -->
-  <path d="M15 5L5 15M5 5L15 15" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- X (close) icon for modals -->
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
 </template> 

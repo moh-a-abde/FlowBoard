@@ -905,10 +905,12 @@
                 {{ getTagName(tagId) }}
                 <button
                   @click.prevent="removeTag(tagId)"
-                  class="ml-1 focus:outline-none"
+                  class="ml-1 focus:outline-none bg-white dark:bg-gray-800 rounded-full p-0 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm scale-1"
                   aria-label="Remove tag"
                 >
-                  <TagDeleteButton size="10" ariaLabel="Remove tag" @delete="removeTag(tagId)" />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-gray-600 dark:text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  </svg>
                 </button>
               </span>
             </div>
@@ -1269,7 +1271,6 @@ import { useAuthStore } from '../store/authStore';
 import { useTagStore } from '../store/tagStore';
 import Navbar from '../components/Navbar.vue';
 import BaseButton from '../components/BaseButton.vue';
-import TagDeleteButton from '../components/TagDeleteButton.vue';
 
 const router = useRouter();
 const taskStore = useTaskStore();
