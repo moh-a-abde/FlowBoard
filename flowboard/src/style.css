@@ -304,6 +304,10 @@ button:active::after {
   min-height: 40px;
   border: 1px solid transparent;
   background-image: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.05));
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
 }
 
 .btn-primary {
@@ -456,7 +460,8 @@ button:active::after {
 
 /* Disabled button state */
 .btn:disabled,
-button:disabled {
+button:disabled,
+.btn.disabled {
   opacity: 0.6;
   cursor: not-allowed;
   box-shadow: none;
@@ -479,6 +484,14 @@ button:disabled {
     min-height: 44px;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+  }
+  
+  .btn-sm {
+    min-height: 36px;
+  }
+  
+  .btn-lg {
+    min-height: 52px;
   }
 }
 

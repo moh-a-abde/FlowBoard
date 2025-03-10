@@ -5,7 +5,7 @@
     <main id="main-content" class="container mx-auto px-4 py-6" aria-label="Task board">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
         <div>
-          <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">My Tasks</h1>
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">My Board</h1>
           <p v-if="hasActiveFilters" class="text-sm text-gray-500 dark:text-gray-400">
             Showing {{ filteredTasks.length }} of {{ taskStore.tasks.length }} tasks
           </p>
@@ -13,135 +13,196 @@
         <div class="flex items-center space-x-2">
           <!-- Column visibility toggles for mobile -->
           <div class="flex md:hidden space-x-1 mr-2" role="tablist" aria-label="Column selector for mobile view">
-            <button 
+            <BaseButton 
               @click="setVisibleColumn('todo')" 
-              class="px-2 py-1 text-xs rounded focus:outline-none transition-colors"
-              :class="visibleColumn === 'todo' ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'"
+              :className="[
+                'px-2 py-1 text-xs rounded transition-colors',
+                visibleColumn === 'todo' ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+              ]"
+              variant="secondary"
+              size="sm"
               aria-label="Show To Do column"
               :aria-selected="visibleColumn === 'todo'"
               role="tab"
             >
               To Do
-            </button>
-            <button 
+            </BaseButton>
+            <BaseButton 
               @click="setVisibleColumn('inProgress')" 
-              class="px-2 py-1 text-xs rounded focus:outline-none transition-colors"
-              :class="visibleColumn === 'inProgress' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'"
+              :className="[
+                'px-2 py-1 text-xs rounded transition-colors',
+                visibleColumn === 'inProgress' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+              ]"
+              variant="secondary"
+              size="sm"
               aria-label="Show In Progress column"
               :aria-selected="visibleColumn === 'inProgress'"
               role="tab"
             >
               In Progress
-            </button>
-            <button 
+            </BaseButton>
+            <BaseButton 
               @click="setVisibleColumn('done')" 
-              class="px-2 py-1 text-xs rounded focus:outline-none transition-colors"
-              :class="visibleColumn === 'done' ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'"
+              :className="[
+                'px-2 py-1 text-xs rounded transition-colors',
+                visibleColumn === 'done' ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+              ]"
+              variant="secondary"
+              size="sm"
               aria-label="Show Done column"
               :aria-selected="visibleColumn === 'done'"
               role="tab"
             >
               Done
-            </button>
+            </BaseButton>
           </div>
-          <button 
+          <BaseButton 
             @click="showAddTaskModal = true" 
-            class="btn btn-primary flex items-center shadow-md hover:shadow-lg bg-gradient-to-b from-primary-400/30 to-primary-500 dark:from-primary-400/20 dark:to-primary-500 hover:-translate-y-0.5"
+            variant="primary"
+            icon="plus"
+            className="flex items-center shadow-md hover:shadow-lg bg-gradient-to-b from-primary-400/30 to-primary-500 dark:from-primary-400/20 dark:to-primary-500 hover:-translate-y-0.5"
             aria-label="Add new task"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-            </svg>
             Add Task
-          </button>
+          </BaseButton>
         </div>
       </div>
       
       <!-- Tag filters bar -->
-      <div class="mb-5 bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 border border-gray-100 dark:border-gray-700">
-        <div class="flex items-center mb-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500 dark:text-indigo-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-          </svg>
-          <h3 class="text-sm font-medium text-gray-800 dark:text-gray-200">Filter by tag</h3>
-        </div>
-        
-        <div class="flex flex-wrap gap-2 mt-3">
-          <button 
-            @click="clearTagFilter"
-            class="group px-3 py-1.5 text-xs rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 shadow-sm transition-all duration-200 flex items-center"
-            :class="{ 'ring-2 ring-indigo-500 dark:ring-indigo-400 font-medium': selectedTagIds.length === 0 }"
-            aria-label="Show all tags"
-          >
-            <span class="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-200" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
-              </svg>
-              All Tags
-            </span>
-          </button>
-          
-          <button 
-            v-for="tag in tagStore.getAllTags" 
-            :key="tag.id"
-            @click="toggleTagFilter(tag.id)"
-            class="group px-3 py-1.5 text-xs rounded-full inline-flex items-center transition-all duration-200 shadow-sm hover:shadow-md relative overflow-hidden"
-            :class="{
-              'font-medium': selectedTagIds.includes(tag.id)
-            }"
-            :style="{ 
-              backgroundColor: selectedTagIds.includes(tag.id) ? tag.color : tag.color + '15',
-              color: selectedTagIds.includes(tag.id) ? '#fff' : tag.color,
-              borderWidth: '1px',
-              borderStyle: 'solid',
-              borderColor: selectedTagIds.includes(tag.id) ? tag.color : tag.color + '30'
-            }"
-            :aria-pressed="selectedTagIds.includes(tag.id)"
-            :aria-label="`Filter by ${tag.name} tag`"
-          >
-            <span class="relative z-10 flex items-center">
-              <svg 
-                v-if="selectedTagIds.includes(tag.id)" 
-                xmlns="http://www.w3.org/2000/svg" 
-                class="h-3.5 w-3.5 mr-1.5 text-white" 
-                viewBox="0 0 20 20" 
-                fill="currentColor"
-              >
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <svg 
-                v-else 
-                xmlns="http://www.w3.org/2000/svg" 
-                class="h-3.5 w-3.5 mr-1.5" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-                :style="{ stroke: tag.color }"
-              >
+      <div class="mb-5 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden transition-all duration-300">
+        <!-- Tag filter header with toggle button -->
+        <div 
+          class="px-4 py-3 flex items-center justify-between cursor-pointer relative group transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-gray-800/90 dark:hover:shadow-[inset_0_0_12px_rgba(59,130,246,0.1)]"
+          @click="toggleTagFilterPanel"
+          @keydown.enter="toggleTagFilterPanel"
+          @keydown.space.prevent="toggleTagFilterPanel"
+          :aria-expanded="isTagFilterPanelOpen"
+          aria-controls="tag-filter-panel-content"
+          tabindex="0"
+          role="button"
+        >
+          <div class="flex items-center justify-start relative z-10">
+            <div class="flex-shrink-0 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2.5 text-blue-500 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
               </svg>
-              {{ tag.name }} 
-              <span class="ml-1.5 px-1.5 py-0.5 bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 rounded-full text-2xs">{{ getTagCount(tag.id) }}</span>
-            </span>
-            
-            <!-- Hover ripple effect -->
-            <span 
-              class="absolute inset-0 bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10 transform scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 rounded-full"
-              aria-hidden="true"
-            ></span>
-          </button>
+            </div>
+            <h3 class="text-xs font-medium text-black dark:text-white my-auto">Filter by tag</h3>
+          </div>
           
-          <!-- Manage Tags Button -->
-          <button 
-            @click="showTagManagement = true" 
-            class="group px-3 py-1.5 text-xs rounded-full bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 shadow-sm transition-all duration-200 flex items-center"
-            aria-label="Manage tags"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1.5 group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          <!-- Active tag filters summary (visible when collapsed) -->
+          <div class="flex items-center gap-2">
+            <div v-if="selectedTagIds.length > 0 && !isTagFilterPanelOpen" class="flex flex-wrap gap-1 items-center">
+              <span class="text-xs text-gray-500 dark:text-gray-400">Active:</span>
+              <span class="text-xs bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300 px-2 py-0.5 rounded-full font-medium shadow-sm">Tags ({{ selectedTagIds.length }})</span>
+              <button 
+                @click.stop="clearTagFilter" 
+                class="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 hover:underline ml-1 transition-colors duration-200"
+              >
+                Clear
+              </button>
+            </div>
+            
+            <!-- Chevron icon that rotates -->
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              class="h-4 w-4 text-gray-400 dark:text-gray-500 transform transition-transform duration-300" 
+              :class="{ 'rotate-180': isTagFilterPanelOpen }"
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
-            Manage Tags
-          </button>
+          </div>
+        </div>
+        
+        <!-- Tag filter panel body with transition -->
+        <div 
+          id="tag-filter-panel-content"
+          class="overflow-hidden transition-all duration-300 ease-in-out"
+          :class="isTagFilterPanelOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'"
+          :aria-hidden="!isTagFilterPanelOpen"
+        >
+          <div class="p-4">
+            <div class="flex flex-wrap gap-2">
+              <button 
+                @click="clearTagFilter"
+                class="group px-3 py-1.5 text-xs rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 shadow-sm transition-all duration-200 flex items-center"
+                :class="{ 'ring-2 ring-indigo-500 dark:ring-indigo-400 font-medium': selectedTagIds.length === 0 }"
+                aria-label="Show all tags"
+              >
+                <span class="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-200" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+                  </svg>
+                  All Tags
+                </span>
+              </button>
+              
+              <button 
+                v-for="tag in tagStore.getAllTags" 
+                :key="tag.id"
+                @click="toggleTagFilter(tag.id)"
+                class="group px-3 py-1.5 text-xs rounded-full inline-flex items-center transition-all duration-200 shadow-sm hover:shadow-md relative overflow-hidden"
+                :class="{
+                  'font-medium': selectedTagIds.includes(tag.id)
+                }"
+                :style="{ 
+                  backgroundColor: selectedTagIds.includes(tag.id) ? tag.color : tag.color + '15',
+                  color: selectedTagIds.includes(tag.id) ? '#fff' : tag.color,
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: selectedTagIds.includes(tag.id) ? tag.color : tag.color + '30'
+                }"
+                :aria-pressed="selectedTagIds.includes(tag.id)"
+                :aria-label="`Filter by ${tag.name} tag`"
+              >
+                <span class="relative z-10 flex items-center">
+                  <svg 
+                    v-if="selectedTagIds.includes(tag.id)" 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    class="h-3.5 w-3.5 mr-1.5 text-white" 
+                    viewBox="0 0 20 20" 
+                    fill="currentColor"
+                  >
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  <svg 
+                    v-else 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    class="h-3.5 w-3.5 mr-1.5" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                    :style="{ stroke: tag.color }"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                  </svg>
+                  {{ tag.name }} 
+                  <span class="ml-1.5 px-1.5 py-0.5 bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 rounded-full text-2xs">{{ getTagCount(tag.id) }}</span>
+                </span>
+                
+                <!-- Hover ripple effect -->
+                <span 
+                  class="absolute inset-0 bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10 transform scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 rounded-full"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              
+              <!-- Manage Tags Button -->
+              <button 
+                @click="showTagManagement = true" 
+                class="group px-3 py-1.5 text-xs rounded-full bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 shadow-sm transition-all duration-200 flex items-center"
+                aria-label="Manage tags"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1.5 group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Manage Tags
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -149,7 +210,7 @@
       <div class="mb-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden transition-all duration-300">
         <!-- Filter panel header with toggle button -->
         <div 
-          class="px-4 py-3 flex items-center justify-between cursor-pointer relative group transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-gray-750"
+          class="px-4 py-3 flex items-center justify-between cursor-pointer relative group transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-gray-800/90 dark:hover:shadow-[inset_0_0_12px_rgba(59,130,246,0.1)]"
           @click="toggleFilterPanel"
           @keydown.enter="toggleFilterPanel"
           @keydown.space.prevent="toggleFilterPanel"
@@ -158,11 +219,13 @@
           tabindex="0"
           role="button"
         >
-          <div class="flex items-center relative z-10">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-500 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-            </svg>
-            <h3 class="font-medium text-gray-800 dark:text-gray-200">Filters & Search</h3>
+          <div class="flex items-center justify-start relative z-10">
+            <div class="flex-shrink-0 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2.5 text-blue-500 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+            </div>
+            <h3 class="text-xs font-medium text-black dark:text-white my-auto">Filters & Search</h3>
           </div>
           
           <!-- Active filters summary (visible when collapsed) -->
@@ -184,7 +247,7 @@
             <!-- Chevron icon that rotates -->
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
-              class="h-5 w-5 text-gray-400 dark:text-gray-500 transform transition-transform duration-300" 
+              class="h-4 w-4 text-gray-400 dark:text-gray-500 transform transition-transform duration-300" 
               :class="{ 'rotate-180': isFilterPanelOpen }"
               fill="none" 
               viewBox="0 0 24 24" 
@@ -310,43 +373,57 @@
                 <span v-if="hasActiveFilters" class="text-sm text-gray-500 dark:text-gray-400">Active Filters:</span>
                 <div v-if="searchQuery" class="flex items-center bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 text-xs rounded-full px-2.5 py-1.5 shadow-sm">
                   <span>Search: {{ searchQuery }}</span>
-                  <button @click="searchQuery = ''" class="ml-1.5 focus:outline-none hover:bg-blue-200 dark:hover:bg-blue-800/40 p-0.5 rounded-full transition-colors duration-200" aria-label="Clear search filter">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
+                  <BaseButton 
+                    @click="searchQuery = ''" 
+                    variant="secondary"
+                    iconOnly
+                    icon="close-circle"
+                    className="ml-1.5 p-0.5 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800/40 transition-colors duration-200"
+                    aria-label="Clear search filter"
+                  />
                 </div>
                 <div v-if="priorityFilter" class="flex items-center bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300 text-xs rounded-full px-2.5 py-1.5 shadow-sm">
                   <span>Priority: {{ priorityFilter }}</span>
-                  <button @click="priorityFilter = ''" class="ml-1.5 focus:outline-none hover:bg-purple-200 dark:hover:bg-purple-800/40 p-0.5 rounded-full transition-colors duration-200" aria-label="Clear priority filter">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
+                  <BaseButton 
+                    @click="priorityFilter = ''" 
+                    variant="secondary"
+                    iconOnly
+                    icon="close-circle"
+                    className="ml-1.5 p-0.5 rounded-full hover:bg-purple-200 dark:hover:bg-purple-800/40 transition-colors duration-200"
+                    aria-label="Clear priority filter"
+                  />
                 </div>
                 <div v-if="dueDateFilter" class="flex items-center bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-300 text-xs rounded-full px-2.5 py-1.5 shadow-sm">
                   <span>Date: {{ formatDueDateFilter(dueDateFilter) }}</span>
-                  <button @click="dueDateFilter = ''" class="ml-1.5 focus:outline-none hover:bg-yellow-200 dark:hover:bg-yellow-800/40 p-0.5 rounded-full transition-colors duration-200" aria-label="Clear due date filter">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
+                  <BaseButton 
+                    @click="dueDateFilter = ''" 
+                    variant="secondary"
+                    iconOnly
+                    icon="close-circle"
+                    className="ml-1.5 p-0.5 rounded-full hover:bg-yellow-200 dark:hover:bg-yellow-800/40 transition-colors duration-200"
+                    aria-label="Clear due date filter"
+                  />
                 </div>
                 <div v-if="selectedTagIds.length > 0" class="flex items-center bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300 text-xs rounded-full px-2.5 py-1.5 shadow-sm">
                   <span>{{ selectedTagIds.length }} tag{{ selectedTagIds.length > 1 ? 's' : '' }}</span>
-                  <button @click="clearTagFilter" class="ml-1.5 focus:outline-none hover:bg-indigo-200 dark:hover:bg-indigo-800/40 p-0.5 rounded-full transition-colors duration-200" aria-label="Clear tag filters">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
+                  <BaseButton 
+                    @click="clearTagFilter" 
+                    variant="secondary"
+                    iconOnly
+                    icon="close-circle"
+                    className="ml-1.5 p-0.5 rounded-full hover:bg-indigo-200 dark:hover:bg-indigo-800/40 transition-colors duration-200"
+                    aria-label="Clear tag filters"
+                  />
                 </div>
-                <button 
+                <BaseButton 
                   v-if="hasActiveFilters" 
                   @click="clearAllFilters" 
-                  class="text-xs text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:underline ml-1 transition-colors duration-200"
+                  variant="secondary"
+                  size="sm"
+                  className="text-xs text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:underline ml-1 transition-colors duration-200"
                 >
                   Clear All
-                </button>
+                </BaseButton>
               </div>
             </div>
           </div>
@@ -361,7 +438,7 @@
           role="region"
           aria-label="To Do column"
         >
-          <div class="bg-indigo-50 dark:bg-indigo-900/30 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+          <div class="bg-gradient-to-r from-indigo-100 to-indigo-50 dark:from-indigo-900/40 dark:to-indigo-800/30 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
             <div class="flex justify-between items-center">
               <h3 class="font-bold text-indigo-700 dark:text-indigo-300">To Do</h3>
               <span class="text-xs font-medium bg-indigo-100 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200 px-2 py-0.5 rounded-full">
@@ -487,7 +564,7 @@
           role="region"
           aria-label="In Progress column"
         >
-          <div class="bg-blue-50 dark:bg-blue-900/30 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+          <div class="bg-gradient-to-r from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-800/30 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
             <div class="flex justify-between items-center">
               <h3 class="font-bold text-blue-700 dark:text-blue-300">In Progress</h3>
               <span class="text-xs font-medium bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 px-2 py-0.5 rounded-full">
@@ -613,7 +690,7 @@
           role="region"
           aria-label="Done column"
         >
-          <div class="bg-green-50 dark:bg-green-900/30 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+          <div class="bg-gradient-to-r from-green-100 to-green-50 dark:from-green-900/40 dark:to-green-800/30 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
             <div class="flex justify-between items-center">
               <h3 class="font-bold text-green-700 dark:text-green-300">Done</h3>
               <span class="text-xs font-medium bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200 px-2 py-0.5 rounded-full">
@@ -828,12 +905,10 @@
                 {{ getTagName(tagId) }}
                 <button
                   @click.prevent="removeTag(tagId)"
-                  class="ml-1 focus:outline-none bg-white dark:bg-gray-800 rounded-full p-0 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm scale-1"
+                  class="ml-1 focus:outline-none"
                   aria-label="Remove tag"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-10.5 w-10.5 text-gray-600 dark:text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                  </svg>
+                  <TagDeleteButton size="10" ariaLabel="Remove tag" @delete="removeTag(tagId)" />
                 </button>
               </span>
             </div>
@@ -962,21 +1037,23 @@
                 aria-label="Edit comment"
               ></textarea>
               <div class="flex justify-end space-x-2 py-2 px-3 bg-gray-50 dark:bg-gray-800/80">
-                <button 
+                <BaseButton 
                   @click="cancelEditComment" 
-                  class="btn btn-secondary btn-sm"
+                  variant="secondary"
+                  size="sm"
                   aria-label="Cancel edit"
                 >
                   Cancel
-                </button>
-                <button 
+                </BaseButton>
+                <BaseButton 
                   @click="saveEditComment" 
-                  class="btn btn-primary btn-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  variant="primary"
+                  size="sm"
                   :disabled="!editedCommentText.trim()"
                   aria-label="Save comment edit"
                 >
                   Save
-                </button>
+                </BaseButton>
               </div>
             </div>
           </div>
@@ -1191,6 +1268,8 @@ import { useTaskStore } from '../store/taskStore';
 import { useAuthStore } from '../store/authStore';
 import { useTagStore } from '../store/tagStore';
 import Navbar from '../components/Navbar.vue';
+import BaseButton from '../components/BaseButton.vue';
+import TagDeleteButton from '../components/TagDeleteButton.vue';
 
 const router = useRouter();
 const taskStore = useTaskStore();
@@ -1207,7 +1286,8 @@ const showTagManagement = ref(false);
 const editingTagId = ref(null);
 const selectedTag = ref('');
 const selectedTagIds = ref([]);
-const isFilterPanelOpen = ref(true); // New ref for filter panel toggle state
+const isFilterPanelOpen = ref(false); // Set to false to start collapsed
+const isTagFilterPanelOpen = ref(false); // Set to false to start collapsed
 
 // Comment and activity log state
 const newComment = ref('');
@@ -1666,6 +1746,11 @@ const getTagCount = (tagId) => {
   ).length;
 };
 
+// Toggle tag filter panel
+const toggleTagFilterPanel = () => {
+  isTagFilterPanelOpen.value = !isTagFilterPanelOpen.value;
+};
+
 // Toggle filter panel
 const toggleFilterPanel = () => {
   isFilterPanelOpen.value = !isFilterPanelOpen.value;
@@ -1677,6 +1762,11 @@ watch([searchQuery, priorityFilter, dueDateFilter, selectedTagIds],
     // If any filter is applied and panel is closed, open it
     if ((newSearch || newPriority || newDueDate || newTagIds.length > 0) && !isFilterPanelOpen.value) {
       isFilterPanelOpen.value = true;
+    }
+    
+    // Auto-expand tag filter panel when tags are selected
+    if (newTagIds.length > 0 && !isTagFilterPanelOpen.value) {
+      isTagFilterPanelOpen.value = true;
     }
   }
 );

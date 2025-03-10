@@ -38,7 +38,10 @@ const iconComponents = {
   'menu': defineAsyncComponent(() => import('../assets/icons/Menu.vue')),
   'menu-fold': defineAsyncComponent(() => import('../assets/icons/MenuFold.vue')),
   'todo': defineAsyncComponent(() => import('../assets/icons/Todo.vue')),
+  'todo-icon': defineAsyncComponent(() => import('../assets/icons/TodoIcon.vue')),
+  'todo-rounded': defineAsyncComponent(() => import('../assets/icons/TodoRounded.vue')),
   'in-progress': defineAsyncComponent(() => import('../assets/icons/InProgress.vue')),
+  'stats': defineAsyncComponent(() => import('../assets/icons/Stats.vue')),
 
   // Status icons
   'warning': defineAsyncComponent(() => import('../assets/icons/Warning.vue')),

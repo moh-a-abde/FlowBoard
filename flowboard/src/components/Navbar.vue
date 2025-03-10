@@ -10,7 +10,7 @@
             <IconManager 
               name="flow-wave" 
               size="24" 
-              className="mr-2 text-primary-500 dark:text-primary-400 animate-pulse-gentle" 
+              className="mr-2 text-black dark:text-white animate-pulse-gentle" 
               title="FlowBoard Logo"
             />
             <span>FlowBoard</span>
@@ -19,56 +19,59 @@
         
         <div class="flex items-center space-x-3">
           <template v-if="authStore.isAuthenticated">
-            <span v-if="!isCollapsed" class="text-gray-600 dark:text-gray-300 text-sm hidden sm:inline-block mr-2 transition-colors-normal">
+            <span v-if="!isCollapsed" class="text-black dark:text-blue-400 text-sm hidden sm:inline-block mr-2 transition-colors-normal">
               {{ authStore.currentUser?.name }}
             </span>
-            <router-link v-if="!isCollapsed" to="/board" class="btn btn-secondary text-sm py-1.5 hover-lift transition-all-normal flex items-center">
-              <span class="hidden sm:inline">My Tasks</span>
-              <IconManager 
-                v-if="isMobile" 
-                name="task-list" 
-                size="20" 
-                title="My Tasks"
-              />
-            </router-link>
-            <button v-if="!isCollapsed" @click="logout" class="btn btn-secondary text-sm py-1.5 hover-lift transition-all-normal flex items-center">
-              <span class="hidden sm:inline">Logout</span>
-              <IconManager 
-                v-if="isMobile" 
-                name="logout" 
-                size="20" 
-                title="Logout"
-              />
-            </button>
+            <BaseButton 
+              v-if="!isCollapsed" 
+              variant="secondary" 
+              size="sm" 
+              :icon="isMobile ? 'task-list' : ''" 
+              :iconOnly="isMobile" 
+              @click="$router.push('/board')"
+            >
+              My Tasks
+            </BaseButton>
+            <BaseButton 
+              v-if="!isCollapsed" 
+              variant="secondary" 
+              size="sm" 
+              :icon="isMobile ? 'logout' : ''" 
+              :iconOnly="isMobile" 
+              @click="logout"
+            >
+              Logout
+            </BaseButton>
           </template>
           <template v-else>
-            <router-link v-if="!isCollapsed" to="/login" class="btn btn-secondary text-sm py-1.5 hover-lift transition-all-normal">Login</router-link>
-            <router-link v-if="!isCollapsed" to="/register" class="btn btn-primary text-sm py-1.5 hover-lift transition-all-normal">Register</router-link>
+            <BaseButton 
+              v-if="!isCollapsed" 
+              variant="secondary" 
+              size="sm" 
+              @click="$router.push('/login')"
+            >
+              Login
+            </BaseButton>
+            <BaseButton 
+              v-if="!isCollapsed" 
+              variant="primary" 
+              size="sm" 
+              @click="$router.push('/register')"
+            >
+              Register
+            </BaseButton>
           </template>
           
           <!-- Collapse/Expand Button -->
-          <button 
-            @click="toggleNavbar" 
-            class="p-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors-normal focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-gray-400"
-            :aria-label="isCollapsed ? 'Expand navbar' : 'Collapse navbar'"
-          >
-            <!-- Expand icon when collapsed -->
-            <IconManager 
-              v-if="isCollapsed" 
-              name="menu" 
-              size="20" 
-              className="animate-scale-in" 
-              title="Expand navbar"
-            />
-            <!-- Collapse icon when expanded -->
-            <IconManager 
-              v-else 
-              name="menu-fold" 
-              size="20" 
-              className="animate-scale-in" 
-              title="Collapse navbar"
-            />
-          </button>
+          <BaseButton 
+            variant="secondary" 
+            iconOnly 
+            :icon="isCollapsed ? 'menu' : 'menu-fold'" 
+            :iconTitle="isCollapsed ? 'Expand navbar' : 'Collapse navbar'" 
+            :iconClass="'animate-scale-in'" 
+            className="p-1.5 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-gray-400"
+            @click="toggleNavbar"
+          />
         </div>
       </div>
     </div>
@@ -79,6 +82,7 @@
 import { useAuthStore } from '../store/authStore';
 import { useRouter } from 'vue-router';
 import IconManager from './IconManager.vue';
+import BaseButton from './BaseButton.vue';
 import { useBreakpoints, breakpointsTailwind } from '@vueuse/core';
 import { ref, onMounted } from 'vue';
 
