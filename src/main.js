@@ -15,7 +15,7 @@ import IconManager from './components/IconManager.vue'
 
 // Create router
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: '/', component: Home, name: 'home' },
     { path: '/login', component: Login, name: 'login' },
