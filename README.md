@@ -2,7 +2,7 @@
 
 A sleek and intuitive task management application designed for efficient workflow management.
 
-
+---
 
 ## 🚀 Features
 
@@ -18,6 +18,8 @@ A sleek and intuitive task management application designed for efficient workflo
 
 💾 Local Storage Persistence - Saves data even after refresh.
 
+---
+
 ## 🛠 Tech Stack
 
 Frontend: Vue 3 (Composition API), Vue Router, Pinia
@@ -27,6 +29,8 @@ Styling: TailwindCSS
 Networking: Axios
 
 Build Tool: Vite
+
+---
 
 ## 📦 Project Setup
 
@@ -38,6 +42,8 @@ npm run dev
 
 # Build for production
 npm run build
+
+---
 
 ## 📂 Project Structure
 
@@ -58,6 +64,7 @@ flowboard/
 ├── tailwind.config.js   # TailwindCSS configuration
 └── vite.config.js       # Vite configuration
 ```
+---
 
 ## 📸 Demo Screenshots
 
@@ -67,6 +74,8 @@ flowboard/
 ![Dark Board](src/assets/demo/dark_board.png)
 ![Filters](src/assets/demo/filter.png)
 ![Add Task](src/assets/demo/add_task.png)
+
+---
 
 ## 🔮 Future Enhancements
 
@@ -79,6 +88,8 @@ flowboard/
 🤝 Collaboration Tools - Team-based task management.
 
 🌙 Dark Mode - Toggle between light and dark themes.
+
+---
 
 📜 License
 
