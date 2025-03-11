@@ -58,12 +58,12 @@ flowboard/
 
 ## 📸 Demo Screenshots
 
-1. ![Light Dash](flowboard/src/assets/demo/light_dash.png)
-2. ![Light Board](flowboard/src/assets/demo/light_board.png)
-3. ![Dark Dash](flowboard/src/assets/demo/dark_dash.png)
-4. ![Dark Board](flowboard/src/assets/demo/dark_board.png)
-5. ![Filters](flowboard/src/assets/demo/filter.png)
-6. ![Add Task](flowboard/src/assets/demo/add_task.png)
+1. ![Light Dash](src/assets/demo/light_dash.png)
+2. ![Light Board](src/assets/demo/light_board.png)
+3. ![Dark Dash](src/assets/demo/dark_dash.png)
+4. ![Dark Board](src/assets/demo/dark_board.png)
+5. ![Filters](src/assets/demo/filter.png)
+6. ![Add Task](src/assets/demo/add_task.png)
 
 ## 🔮 Future Enhancements
 
