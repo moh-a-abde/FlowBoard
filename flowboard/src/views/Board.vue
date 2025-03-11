@@ -896,23 +896,29 @@
           <div class="mb-4">
             <label class="block text-gray-700 dark:text-gray-300 mb-2">Tags</label>
             <div class="flex flex-wrap gap-2 mb-2">
-              <span
+              <div
                 v-for="tagId in taskForm.tags"
                 :key="tagId"
-                class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
-                :style="{ backgroundColor: getTagColor(tagId) + '33', color: getTagColor(tagId) }"
+                class="flex items-center max-w-full"
               >
-                {{ getTagName(tagId) }}
+                <span
+                  class="px-4 py-4 rounded-l-full text-xs font-medium flex-grow truncate"
+                  :style="{ backgroundColor: getTagColor(tagId) + '33', color: getTagColor(tagId) }"
+                >
+                  {{ getTagName(tagId) }}
+                </span>
                 <button
                   @click.prevent="removeTag(tagId)"
-                  class="ml-1 focus:outline-none bg-white dark:bg-gray-800 rounded-full p-0 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm scale-1"
+                  class="h-4 w-4 flex items-center justify-center rounded-r-full focus:outline-none hover:opacity-80 transition-opacity"
+                  :style="{ backgroundColor: getTagColor(tagId) + '20', color: getTagColor(tagId) }"
                   aria-label="Remove tag"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-gray-600 dark:text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="h-2 w-2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
                   </svg>
                 </button>
-              </span>
+              </div>
             </div>
             
             <div class="flex items-center space-x-2">
@@ -1122,7 +1128,7 @@
 
     <!-- Tag Management Modal -->
     <div v-if="showTagManagement" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm" role="dialog" aria-modal="true">
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-lg overflow-hidden transform transition-all duration-300 scale-100" @click.stop>
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-all duration-300 scale-100 border border-gray-100 dark:border-gray-700" @click.stop>
         <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
           <div class="flex justify-between items-center">
             <h3 class="text-lg font-medium text-gray-900 dark:text-white flex items-center">
@@ -1133,7 +1139,7 @@
             </h3>
             <button 
               @click="showTagManagement = false" 
-              class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+              class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
               aria-label="Close modal"
             >
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -1146,58 +1152,61 @@
         <div class="px-6 py-4 max-h-[70vh] overflow-y-auto">
           <div class="mb-5">
             <h4 class="font-medium text-gray-800 dark:text-gray-200 mb-3 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5 text-gray-500 dark:text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5 text-indigo-500 dark:text-indigo-400" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
               </svg>
               Current Tags
             </h4>
-            <ul class="space-y-2">
+            <ul class="space-y-2.5">
               <li 
                 v-for="tag in tagStore.getAllTags" 
                 :key="tag.id"
-                class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors duration-150"
+                class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-750 transition-all duration-200 group"
               >
                 <div class="flex items-center">
                   <div 
-                    class="w-5 h-5 rounded-full mr-3 shadow-sm flex items-center justify-center" 
+                    class="w-6 h-6 rounded-full mr-3 shadow-sm flex items-center justify-center transition-transform group-hover:scale-110 duration-200" 
                     :style="{ backgroundColor: tag.color }"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-white" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
                     </svg>
                   </div>
-                  <span class="text-gray-800 dark:text-gray-200 font-medium">{{ tag.name }}</span>
+                  <div class="flex flex-col">
+                    <span class="text-gray-800 dark:text-gray-200 font-medium">{{ tag.name }}</span>
+                    <span class="text-xs text-gray-500 dark:text-gray-400">{{ getTagCount(tag.id) }} task{{ getTagCount(tag.id) !== 1 ? 's' : '' }}</span>
+                  </div>
                 </div>
                 <div class="flex space-x-2">
                   <button 
                     @click="editTag(tag)" 
-                    class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded p-1 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm"
+                    class="bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded-lg p-1.5 hover:bg-gray-100 dark:hover:bg-gray-650 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
                     aria-label="Edit tag"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                     </svg>
                   </button>
                   <button 
                     @click="deleteTag(tag.id)" 
-                    class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded p-1 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm"
+                    class="bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded-lg p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-900/30 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400"
                     aria-label="Delete tag"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                     </svg>
                   </button>
                 </div>
               </li>
-              <li v-if="tagStore.getAllTags.length === 0" class="text-center py-4 text-gray-500 dark:text-gray-400 italic">
+              <li v-if="tagStore.getAllTags.length === 0" class="text-center py-6 text-gray-500 dark:text-gray-400 italic bg-gray-50 dark:bg-gray-750 rounded-lg border border-dashed border-gray-300 dark:border-gray-600">
                 No tags created yet. Add your first tag below.
               </li>
             </ul>
           </div>
           
-          <form @submit.prevent="saveTag" class="bg-gray-50 dark:bg-gray-750 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-            <div class="pt-1">
-              <h4 class="font-medium text-gray-800 dark:text-gray-200 mb-3 flex items-center">
+          <form @submit.prevent="saveTag" class="bg-gray-50 dark:bg-gray-750 p-5 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+            <div>
+              <h4 class="font-medium text-gray-800 dark:text-gray-200 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5 text-indigo-500 dark:text-indigo-400" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
                 </svg>
@@ -1206,12 +1215,12 @@
               
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label for="tagName" class="block text-gray-700 dark:text-gray-300 mb-1.5 text-sm">Tag Name</label>
+                  <label for="tagName" class="block text-gray-700 dark:text-gray-300 mb-1.5 text-sm font-medium">Tag Name</label>
                   <input 
                     type="text" 
                     id="tagName" 
                     v-model="tagForm.name" 
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 shadow-sm transition-all duration-200"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 shadow-sm transition-all duration-200"
                     placeholder="Enter tag name"
                     required
                     aria-required="true"
@@ -1219,13 +1228,13 @@
                 </div>
                 
                 <div>
-                  <label for="tagColor" class="block text-gray-700 dark:text-gray-300 mb-1.5 text-sm">Tag Color</label>
+                  <label for="tagColor" class="block text-gray-700 dark:text-gray-300 mb-1.5 text-sm font-medium">Tag Color</label>
                   <div class="relative">
                     <input 
                       type="color" 
                       id="tagColor" 
                       v-model="tagForm.color" 
-                      class="w-full h-10 px-1 py-1 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 shadow-sm transition-all duration-200"
+                      class="w-full h-10 px-1 py-1 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 shadow-sm transition-all duration-200"
                     >
                     <div class="absolute inset-y-0 right-0 flex items-center pr-3">
                       <span class="text-xs font-mono text-gray-500 dark:text-gray-400">{{ tagForm.color.toUpperCase() }}</span>
@@ -1238,13 +1247,13 @@
                 <button 
                   type="button" 
                   @click="resetTagForm" 
-                  class="px-4 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm"
+                  class="px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-650 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
                 >
                   Cancel
                 </button>
                 <button 
                   type="submit" 
-                  class="px-4 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm flex items-center"
+                  class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white border border-indigo-500 hover:border-indigo-600 rounded-lg transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 flex items-center"
                 >
                   <svg v-if="editingTagId" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />

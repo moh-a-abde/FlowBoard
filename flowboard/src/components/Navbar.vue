@@ -30,7 +30,7 @@
               :iconOnly="isMobile" 
               @click="$router.push('/board')"
             >
-              My Tasks
+              Boards
             </BaseButton>
             <BaseButton 
               v-if="!isCollapsed" 

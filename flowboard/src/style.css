@@ -160,16 +160,18 @@ button {
   font-size: 0.875rem;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--color-primary);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 105, 255, 0.1);
 }
+
 button:hover {
-  background-color: var(--color-primary-dark);
+  background-color: rgba(var(--color-primary-dark-rgb, 0, 90, 220), 0.85);
+  color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 105, 255, 0.15);
 }
@@ -627,4 +629,15 @@ input:hover, select:hover, textarea:hover {
 }
 .dark .text-muted {
   color: #9ca3af;
+}
+
+.dark button {
+  background-color: rgba(30, 41, 59, 0.8);
+  color: #f3f4f6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark button:hover {
+  background-color: rgba(var(--color-primary-dark-rgb, 0, 90, 220), 0.85);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }

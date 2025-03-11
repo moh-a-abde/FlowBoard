@@ -15,7 +15,7 @@
       <div class="mb-8">
         <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Dashboard</h1>
         <p class="text-gray-600 dark:text-gray-300">
-          Track your tasks, manage your workflow, and stay productive.
+          {{ currentDateTime }}
         </p>
       </div>
       
@@ -41,7 +41,7 @@
             </div>
           </div>
           <div class="mt-4">
-            <button @click="showTaskPopup('all')" class="flex items-center justify-center w-full py-2 px-4 bg-primary-50 dark:bg-primary-900/20 hover:bg-primary-100 dark:hover:bg-primary-800/30 text-primary-600 dark:text-primary-400 font-medium rounded-md transition-colors-normal">
+            <button @click="showTaskPopup('all')" class="flex items-center justify-center w-full py-2 px-4 bg-primary-50 dark:bg-primary-900/20 hover:bg-primary-100 dark:hover:bg-primary-800/30 text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 font-medium rounded-md transition-colors-normal">
               View all 
               <span class="ml-1 transform translate-x-0 group-hover:translate-x-1 transition-transform-normal">→</span>
             </button>
@@ -68,7 +68,7 @@
             </div>
           </div>
           <div class="mt-4">
-            <button @click="showTaskPopup('todo')" class="flex items-center justify-center w-full py-2 px-4 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-800/30 text-purple-600 dark:text-purple-400 font-medium rounded-md transition-colors-normal">
+            <button @click="showTaskPopup('todo')" class="flex items-center justify-center w-full py-2 px-4 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-800/30 text-purple-600 dark:text-purple-400 hover:text-purple-500 dark:hover:text-purple-300 font-medium rounded-md transition-colors-normal">
               View to-do 
               <span class="ml-1 transform translate-x-0 group-hover:translate-x-1 transition-transform-normal">→</span>
             </button>
@@ -95,7 +95,7 @@
             </div>
           </div>
           <div class="mt-4">
-            <button @click="showTaskPopup('done')" class="flex items-center justify-center w-full py-2 px-4 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-800/30 text-green-600 dark:text-green-400 font-medium rounded-md transition-colors-normal">
+            <button @click="showTaskPopup('done')" class="flex items-center justify-center w-full py-2 px-4 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-800/30 text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 font-medium rounded-md transition-colors-normal">
               View completed 
               <span class="ml-1 transform translate-x-0 group-hover:translate-x-1 transition-transform-normal">→</span>
             </button>
@@ -122,7 +122,7 @@
             </div>
           </div>
           <div class="mt-4">
-            <button @click="showTaskPopup('inProgress')" class="flex items-center justify-center w-full py-2 px-4 bg-yellow-50 dark:bg-yellow-900/20 hover:bg-yellow-100 dark:hover:bg-yellow-800/30 text-yellow-600 dark:text-yellow-400 font-medium rounded-md transition-colors-normal">
+            <button @click="showTaskPopup('inProgress')" class="flex items-center justify-center w-full py-2 px-4 bg-yellow-50 dark:bg-yellow-900/20 hover:bg-yellow-100 dark:hover:bg-yellow-800/30 text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300 font-medium rounded-md transition-colors-normal">
               View in-progress 
               <span class="ml-1 transform translate-x-0 group-hover:translate-x-1 transition-transform-normal">→</span>
             </button>
@@ -220,7 +220,14 @@
           <div class="mt-6 flex justify-end">
             <router-link 
               to="/board" 
-              class="btn btn-primary px-4 py-2 text-sm"
+              class="flex items-center justify-center py-2 px-4 font-medium rounded-md transition-colors-normal"
+              :class="{
+                'bg-primary-50 dark:bg-primary-900/20 hover:bg-primary-100 dark:hover:bg-primary-800/30 text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300': popupType === 'all',
+                'bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-800/30 text-purple-600 dark:text-purple-400 hover:text-purple-500 dark:hover:text-purple-300': popupType === 'todo',
+                'bg-yellow-50 dark:bg-yellow-900/20 hover:bg-yellow-100 dark:hover:bg-yellow-800/30 text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300': popupType === 'inProgress',
+                'bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-800/30 text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300': popupType === 'done',
+                'bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-800/30 text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300': popupType === 'highPriority'
+              }"
             >
               Go to Board
             </router-link>
@@ -311,18 +318,18 @@
                   <!-- Edit Mode Controls -->
                   <div class="absolute top-1 right-1 flex space-x-1">
                     <button v-if="!isEditingNote1" @click="isEditingNote1 = true" 
-                      class="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                      class="text-yellow-600 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300 p-1 rounded-full hover:bg-yellow-100 dark:hover:bg-yellow-800/30 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-yellow-400 dark:focus:ring-yellow-500"
                       aria-label="Edit Task Comments note">
                       <IconManager name="edit" size="12" />
                     </button>
                     <template v-else>
                       <button @click="isEditingNote1 = false" 
-                        class="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                        class="text-yellow-600 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300 p-1 rounded-full hover:bg-yellow-100 dark:hover:bg-yellow-800/30 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-yellow-400 dark:focus:ring-yellow-500"
                         aria-label="Cancel editing Task Comments note">
                         <IconManager name="x-close" size="12" />
                       </button>
                       <button @click="saveNote1" 
-                        class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                        class="text-yellow-600 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300 p-1 rounded-full hover:bg-yellow-100 dark:hover:bg-yellow-800/30 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-yellow-400 dark:focus:ring-yellow-500"
                         aria-label="Save changes to Task Comments note">
                         <IconManager name="check" size="12" />
                       </button>
@@ -340,7 +347,7 @@
                             <span>{{ item }}</span>
                           </li>
                         </ul>
-                        <button class="mt-2 text-xs flex items-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500 rounded p-1"
+                        <button class="mt-2 text-xs flex items-center bg-transparent border border-yellow-400 dark:border-yellow-500 hover:bg-yellow-50 dark:hover:bg-yellow-900/10 text-yellow-600 dark:text-yellow-400 font-medium rounded-md transition-colors-normal px-2 py-1"
                                 aria-label="View details about Task Comments"
                                 @click.stop="viewDefaultNoteDetails(1)">
                           <IconManager name="eye" size="12" className="mr-1" />
@@ -360,13 +367,13 @@
                             aria-label="Note item"
                           />
                           <button @click="removeNoteItem(1, index)" 
-                            class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-0.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                            class="text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300 p-0.5 rounded-full hover:bg-yellow-100 dark:hover:bg-yellow-800/30 focus:outline-none focus:ring-2 focus:ring-yellow-400 dark:focus:ring-yellow-500"
                             aria-label="Remove item">
                             <IconManager name="x-close" size="10" />
                           </button>
                         </div>
                         <button @click="addNoteItem(1)" 
-                          class="mt-1 text-xs flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                          class="mt-1 text-xs flex items-center bg-transparent border border-yellow-400 dark:border-yellow-500 hover:bg-yellow-50 dark:hover:bg-yellow-900/10 text-yellow-600 dark:text-yellow-400 font-medium rounded-md transition-colors-normal px-2 py-1"
                           aria-label="Add new item">
                           <IconManager name="plus" size="12" className="mr-1" />
                           Add item
@@ -393,18 +400,18 @@
                   <!-- Edit Mode Controls -->
                   <div class="absolute top-1 right-1 flex space-x-1">
                     <button v-if="!isEditingNote2" @click="isEditingNote2 = true" 
-                      class="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                      class="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 p-1 rounded-full hover:bg-blue-100 dark:hover:bg-blue-800/30 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500"
                       aria-label="Edit Activity History note">
                       <IconManager name="edit" size="12" />
                     </button>
                     <template v-else>
                       <button @click="isEditingNote2 = false" 
-                        class="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                        class="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 p-1 rounded-full hover:bg-blue-100 dark:hover:bg-blue-800/30 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500"
                         aria-label="Cancel editing Activity History note">
                         <IconManager name="x-close" size="12" />
                       </button>
                       <button @click="saveNote2" 
-                        class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                        class="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 p-1 rounded-full hover:bg-blue-100 dark:hover:bg-blue-800/30 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500"
                         aria-label="Save changes to Activity History note">
                         <IconManager name="check" size="12" />
                       </button>
@@ -422,7 +429,7 @@
                             <span>{{ item }}</span>
                           </li>
                         </ul>
-                        <button class="mt-2 text-xs flex items-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500 rounded p-1"
+                        <button class="mt-2 text-xs flex items-center bg-transparent border border-blue-400 dark:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/10 text-blue-600 dark:text-blue-400 font-medium rounded-md transition-colors-normal px-2 py-1"
                                 aria-label="View details about Activity History"
                                 @click.stop="viewDefaultNoteDetails(2)">
                           <IconManager name="eye" size="12" className="mr-1" />
@@ -442,13 +449,13 @@
                             aria-label="Note item"
                           />
                           <button @click="removeNoteItem(2, index)" 
-                            class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-0.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                            class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 p-0.5 rounded-full hover:bg-blue-100 dark:hover:bg-blue-800/30 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500"
                             aria-label="Remove item">
                             <IconManager name="x-close" size="10" />
                           </button>
                         </div>
                         <button @click="addNoteItem(2)" 
-                          class="mt-1 text-xs flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                          class="mt-1 text-xs flex items-center bg-transparent border border-blue-400 dark:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/10 text-blue-600 dark:text-blue-400 font-medium rounded-md transition-colors-normal px-2 py-1"
                           aria-label="Add new item">
                           <IconManager name="plus" size="12" className="mr-1" />
                           Add item
@@ -475,18 +482,18 @@
                   <!-- Edit Mode Controls -->
                   <div class="absolute top-1 right-1 flex space-x-1">
                     <button v-if="!isEditingNote3" @click="isEditingNote3 = true" 
-                      class="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                      class="text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 p-1 rounded-full hover:bg-green-100 dark:hover:bg-green-800/30 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-green-400 dark:focus:ring-green-500"
                       aria-label="Edit Interactive Dashboard note">
                       <IconManager name="edit" size="12" />
                     </button>
                     <template v-else>
                       <button @click="isEditingNote3 = false" 
-                        class="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                        class="text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 p-1 rounded-full hover:bg-green-100 dark:hover:bg-green-800/30 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-green-400 dark:focus:ring-green-500"
                         aria-label="Cancel editing Interactive Dashboard note">
                         <IconManager name="x-close" size="12" />
                       </button>
                       <button @click="saveNote3" 
-                        class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                        class="text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 p-1 rounded-full hover:bg-green-100 dark:hover:bg-green-800/30 transition-colors text-xs focus:outline-none focus:ring-2 focus:ring-green-400 dark:focus:ring-green-500"
                         aria-label="Save changes to Interactive Dashboard note">
                         <IconManager name="check" size="12" />
                       </button>
@@ -504,7 +511,7 @@
                             <span>{{ item }}</span>
                           </li>
                         </ul>
-                        <button class="mt-2 text-xs flex items-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500 rounded p-1"
+                        <button class="mt-2 text-xs flex items-center bg-transparent border border-green-400 dark:border-green-500 hover:bg-green-50 dark:hover:bg-green-900/10 text-green-600 dark:text-green-400 font-medium rounded-md transition-colors-normal px-2 py-1"
                                 aria-label="View details about Interactive Dashboard"
                                 @click.stop="viewDefaultNoteDetails(3)">
                           <IconManager name="eye" size="12" className="mr-1" />
@@ -524,13 +531,13 @@
                             aria-label="Note item"
                           />
                           <button @click="removeNoteItem(3, index)" 
-                            class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-0.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                            class="text-green-500 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 p-0.5 rounded-full hover:bg-green-100 dark:hover:bg-green-800/30 focus:outline-none focus:ring-2 focus:ring-green-400 dark:focus:ring-green-500"
                             aria-label="Remove item">
                             <IconManager name="x-close" size="10" />
                           </button>
                         </div>
                         <button @click="addNoteItem(3)" 
-                          class="mt-1 text-xs flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500"
+                          class="mt-1 text-xs flex items-center bg-transparent border border-green-400 dark:border-green-500 hover:bg-green-50 dark:hover:bg-green-900/10 text-green-600 dark:text-green-400 font-medium rounded-md transition-colors-normal px-2 py-1"
                           aria-label="Add new item">
                           <IconManager name="plus" size="12" className="mr-1" />
                           Add item
@@ -769,7 +776,7 @@
             </div>
             
             <div class="mt-6 text-center">
-              <router-link to="/board" class="inline-flex items-center justify-center py-2 px-4 bg-primary-50 dark:bg-primary-900/20 hover:bg-primary-100 dark:hover:bg-primary-800/30 text-primary-600 dark:text-primary-400 font-medium rounded-md transition-colors-normal focus:outline-none focus:ring-2 focus:ring-primary-400 dark:focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-850">
+              <router-link to="/board" class="inline-flex items-center justify-center py-2 px-4 bg-primary-50 dark:bg-primary-900/20 hover:bg-primary-100 dark:hover:bg-primary-800/30 text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 font-medium rounded-md transition-colors-normal focus:outline-none focus:ring-2 focus:ring-primary-400 dark:focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-850">
                 <IconManager name="task-list" size="16" className="mr-2" />
                 Go to Board
               </router-link>
@@ -853,9 +860,30 @@ import Footer from '../components/Footer.vue';
 import IconManager from '../components/IconManager.vue';
 import { useAuthStore } from '../store/authStore';
 import { useTaskStore } from '../store/taskStore';
+import { useTagStore } from '../store/tagStore';
 
 const authStore = useAuthStore();
 const taskStore = useTaskStore();
+const tagStore = useTagStore();
+
+// Current date and time display
+const currentDateTime = ref('');
+let dateTimeInterval = null;
+
+// Function to update the current date and time
+const updateDateTime = () => {
+  const now = new Date();
+  const options = { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  };
+  currentDateTime.value = now.toLocaleDateString('en-US', options);
+};
 
 // Post-it Notes state
 const isEditingNote1 = ref(false);
@@ -983,13 +1011,13 @@ const formatStatus = (status) => {
 
 // Get tag name by id
 const getTagName = (tagId) => {
-  const tag = taskStore.getTagById?.(tagId);
+  const tag = tagStore.getTagById(tagId);
   return tag ? tag.name : 'Tag';
 };
 
 // Get tag color by id
 const getTagColor = (tagId) => {
-  const tag = taskStore.getTagById?.(tagId);
+  const tag = tagStore.getTagById(tagId);
   return tag ? tag.color : '#718096';
 };
 
@@ -1008,6 +1036,7 @@ let popupTimeout = null;
 const popupTitle = computed(() => {
   switch(popupType.value) {
     case 'all': return 'All Tasks';
+    case 'todo': return 'To Do Tasks';
     case 'inProgress': return 'In Progress Tasks';
     case 'done': return 'Completed Tasks';
     case 'highPriority': return 'High Priority Tasks';
@@ -1020,6 +1049,8 @@ const filteredTasks = computed(() => {
   switch(popupType.value) {
     case 'all':
       return taskStore.tasks;
+    case 'todo':
+      return taskStore.todoTasks;
     case 'inProgress':
       return taskStore.inProgressTasks;
     case 'done':
@@ -1070,10 +1101,7 @@ const showTaskPopup = (type) => {
     popupAnimation.value = 'scale-100 opacity-100';
   }, 10);
   
-  // Set timeout to auto-close after 5 seconds
-  popupTimeout = setTimeout(() => {
-    closeTaskPopup();
-  }, 5000);
+  // Remove the auto-close timeout
 };
 
 // Close task popup with animation
@@ -1239,14 +1267,26 @@ const handleNewIdeaKeyDown = (event) => {
 onMounted(() => {
   if (authStore.isAuthenticated) {
     taskStore.loadTasks();
+    tagStore.loadTags();
     loadCustomNotes();
   }
+  
+  // Initialize the date and time
+  updateDateTime();
+  
+  // Set up interval to update date and time every second
+  dateTimeInterval = setInterval(updateDateTime, 1000);
 });
 
 // Cleanup on component unmount
 onBeforeUnmount(() => {
   if (popupTimeout) {
     clearTimeout(popupTimeout);
+  }
+  
+  // Clear the date time interval
+  if (dateTimeInterval) {
+    clearInterval(dateTimeInterval);
   }
 });
 </script> 

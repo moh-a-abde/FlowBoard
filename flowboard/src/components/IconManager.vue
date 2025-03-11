@@ -42,6 +42,7 @@ const iconComponents = {
   'todo-rounded': defineAsyncComponent(() => import('../assets/icons/TodoRounded.vue')),
   'in-progress': defineAsyncComponent(() => import('../assets/icons/InProgress.vue')),
   'stats': defineAsyncComponent(() => import('../assets/icons/Stats.vue')),
+  'eye': defineAsyncComponent(() => import('../assets/icons/Eye.vue')),
 
   // Status icons
   'warning': defineAsyncComponent(() => import('../assets/icons/Warning.vue')),
