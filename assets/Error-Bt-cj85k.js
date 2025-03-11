@@ -1,0 +1,1 @@
+import{_ as e,c as l,o,a as n,F as t}from"./index-BJOUi4pa.js";const s={};function a(x,r){return o(),l(t,null,[r[0]||(r[0]=n("circle",{cx:"12",cy:"12",r:"10"},null,-1)),r[1]||(r[1]=n("line",{x1:"15",y1:"9",x2:"9",y2:"15"},null,-1)),r[2]||(r[2]=n("line",{x1:"9",y1:"9",x2:"15",y2:"15"},null,-1))],64)}const c=e(s,[["render",a]]);export{c as default};

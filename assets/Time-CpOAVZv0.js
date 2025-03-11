@@ -1,0 +1,1 @@
+import{_ as r,c as o,o as t,a as n,F as l}from"./index-BJOUi4pa.js";const s={};function a(c,e){return t(),o(l,null,[e[0]||(e[0]=n("circle",{cx:"12",cy:"12",r:"10"},null,-1)),e[1]||(e[1]=n("polyline",{points:"12 6 12 12 16 14"},null,-1))],64)}const f=r(s,[["render",a]]);export{f as default};

@@ -1,0 +1,1 @@
+import{_ as t,c as e,o as l,a as o,F as r}from"./index-BJOUi4pa.js";const s={};function a(u,n){return l(),e(r,null,[n[0]||(n[0]=o("path",{d:"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"},null,-1)),n[1]||(n[1]=o("polyline",{points:"16 17 21 12 16 7"},null,-1)),n[2]||(n[2]=o("line",{x1:"21",y1:"12",x2:"9",y2:"12"},null,-1))],64)}const f=t(s,[["render",a]]);export{f as default};

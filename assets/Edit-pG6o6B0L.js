@@ -1,0 +1,1 @@
+import{_ as e,c as n,o as r,a as t,F as o}from"./index-BJOUi4pa.js";const s={};function l(d,a){return r(),n(o,null,[a[0]||(a[0]=t("path",{d:"M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"},null,-1)),a[1]||(a[1]=t("path",{d:"M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"},null,-1))],64)}const f=e(s,[["render",l]]);export{f as default};
