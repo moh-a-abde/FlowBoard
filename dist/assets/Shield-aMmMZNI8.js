@@ -1,1 +1,0 @@
-import{_ as e,c,o as t}from"./index-DbK-LqR9.js";const o={},s={d:"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"};function n(r,_){return t(),c("path",s)}const d=e(o,[["render",n]]);export{d as default};

@@ -1,1 +1,0 @@
-import{_ as l,c as o,o as r,a as n,F as s}from"./index-DbK-LqR9.js";const t={};function a(x,e){return r(),o(s,null,[e[0]||(e[0]=n("line",{x1:"18",y1:"6",x2:"6",y2:"18"},null,-1)),e[1]||(e[1]=n("line",{x1:"6",y1:"6",x2:"18",y2:"18"},null,-1))],64)}const f=l(t,[["render",a]]);export{f as default};

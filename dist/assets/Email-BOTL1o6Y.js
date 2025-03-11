@@ -1,1 +1,0 @@
-import{_ as t,c as o,o as l,a as n,F as r}from"./index-DbK-LqR9.js";const s={};function a(c,e){return l(),o(r,null,[e[0]||(e[0]=n("path",{d:"M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"},null,-1)),e[1]||(e[1]=n("polyline",{points:"22,6 12,13 2,6"},null,-1))],64)}const f=t(s,[["render",a]]);export{f as default};

@@ -1,1 +1,0 @@
-import{_ as e,c as o,o as t}from"./index-DbK-LqR9.js";const c={},n={points:"22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"};function r(s,_){return t(),o("polygon",n)}const f=e(c,[["render",r]]);export{f as default};
