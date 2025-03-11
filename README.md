@@ -93,7 +93,6 @@ flowboard/
 
 📜 License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License @ Mohamed
 
-Made by by Mohamed Abdel Hamid
 
