@@ -34,6 +34,7 @@ Build Tool: Vite
 
 ## 📦 Project Setup
 
+```bash
 # Install dependencies
 npm install
 
@@ -42,6 +43,7 @@ npm run dev
 
 # Build for production
 npm run build
+```
 
 ---
 
