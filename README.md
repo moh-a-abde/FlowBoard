@@ -70,11 +70,22 @@ flowboard/
 
 ## 📸 Demo Screenshots
 
+Light Mode Dashboard
 ![Light Dash](src/assets/demo/light_dash.png)
+
+Light Mode Taskboard
 ![Light Board](src/assets/demo/light_board.png)
+
+Dark Mode Dashboard
 ![Dark Dash](src/assets/demo/dark_dash.png)
+
+Dark Mode Taskboard
 ![Dark Board](src/assets/demo/dark_board.png)
+
+Filters
 ![Filters](src/assets/demo/filter.png)
+
+Add Task
 ![Add Task](src/assets/demo/add_task.png)
 
 ---
