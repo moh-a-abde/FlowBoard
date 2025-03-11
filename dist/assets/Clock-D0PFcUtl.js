@@ -1,0 +1,1 @@
+import{_ as o,c as r,o as l,a as n,F as t}from"./index-DbK-LqR9.js";const s={};function c(a,e){return l(),r(t,null,[e[0]||(e[0]=n("circle",{cx:"12",cy:"12",r:"10"},null,-1)),e[1]||(e[1]=n("polyline",{points:"12 6 12 12 16 14"},null,-1))],64)}const i=o(s,[["render",c]]);export{i as default};
