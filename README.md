@@ -1,27 +1,35 @@
-# FlowBoard - Task Management Application
+## FlowBoard - Task Management Application
 
-A modern task management application built with Vue.js, JavaScript, and TailwindCSS.
+A sleek and intuitive task management application designed for efficient workflow management.
 
-## Features
 
-- User authentication (login/register)
-- Kanban board interface with drag-and-drop functionality
-- Create, edit, and delete tasks
-- Set task priorities and due dates
-- Responsive design for all devices
-- Local storage persistence
 
-## Tech Stack
+## 🚀 Features
 
-- Vue 3 with Composition API
-- Vue Router for navigation
-- Pinia for state management
-- TailwindCSS for styling
-- Axios for API communication
+🔑 User Authentication - Secure login and registration.
 
-## Project Setup
+📌 Kanban Board - Drag-and-drop task management.
 
-```bash
+📝 Task Management - Create, edit, and delete tasks.
+
+⚡ Prioritization - Set task priorities and due dates.
+
+📱 Responsive Design - Works across all devices.
+
+💾 Local Storage Persistence - Saves data even after refresh.
+
+## 🛠 Tech Stack
+
+Frontend: Vue 3 (Composition API), Vue Router, Pinia
+
+Styling: TailwindCSS
+
+Networking: Axios
+
+Build Tool: Vite
+
+## 📦 Project Setup
+
 # Install dependencies
 npm install
 
@@ -30,17 +38,14 @@ npm run dev
 
 # Build for production
 npm run build
-```
 
-## Project Structure
+## 📂 Project Structure
 
-```
 flowboard/
 ├── public/              # Static assets
 ├── src/
 │   ├── api/             # API services
 │   ├── assets/          # Images, fonts, etc.
-│   │   └── css/         # CSS files
 │   ├── components/      # Reusable Vue components
 │   ├── store/           # Pinia stores
 │   ├── views/           # Page components
@@ -50,16 +55,31 @@ flowboard/
 ├── package.json         # Project dependencies
 ├── tailwind.config.js   # TailwindCSS configuration
 └── vite.config.js       # Vite configuration
-```
 
-## Future Enhancements
+## 📸 Demo Screenshots
 
-- Backend integration with RESTful API
-- Real-time updates with WebSockets
-- Multiple board support
-- Team collaboration features
-- Dark mode support
+1. ![Light Dash](flowboard/src/assets/demo/light_dash.png)
+2. ![Light Board](flowboard/src/assets/demo/light_board.png)
+3. ![Dark Dash](flowboard/src/assets/demo/dark_dash.png)
+4. ![Dark Board](flowboard/src/assets/demo/dark_board.png)
+5. ![Filters](flowboard/src/assets/demo/filter.png)
+6. ![Add Task](flowboard/src/assets/demo/add_task.png)
 
-## License
+## 🔮 Future Enhancements
 
-MIT
+🌐 Backend Integration - RESTful API for data persistence.
+
+🔄 Real-time Updates - WebSockets for live changes.
+
+📊 Multiple Board Support - Manage different workflows.
+
+🤝 Collaboration Tools - Team-based task management.
+
+🌙 Dark Mode - Toggle between light and dark themes.
+
+📜 License
+
+This project is licensed under the MIT License.
+
+Made by by Mohamed Abdel Hamid
+
